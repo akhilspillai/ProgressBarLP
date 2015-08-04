@@ -14,15 +14,22 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
-public class ProgressBarMaterial extends View implements Animator.AnimatorListener {
-    private static final int PROGRESS_WIDTH = 5;
-    private static final long ANIM_DURATION = 600;
+/**
+ * Creates a material themed progressbar for API 11 and above
+ *
+ * @author Akhil S Pillai
+ */
 
-    private int mProgressColor = Color.RED;
+public class ProgressBarMaterial extends View implements Animator.AnimatorListener {
+    private static final int DEFAULT_PROGRESS_WIDTH = 5;
+    private static final long DEFAULT_ANIM_DURATION = 600;
+    private static final int[] DEFAULT_COLORS = new int[]{Color.RED, Color.GREEN, Color.BLUE};
     private Paint mProgressPaint;
     private RectF mProgressRect;
     private float mProgressStrokeWidth, mStartAngle = 0, mSweepAngle = 0, mActualCoveredAngle = 0;
     private AnimatorSet mAnimator;
+    private int[] mProgressSwapColors;
+    private int mColorArrayPointer = 0;
 
     public ProgressBarMaterial(Context context) {
         super(context);
@@ -40,19 +47,34 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
     }
 
     private void init(AttributeSet attrs, int defStyle) {
+        mProgressStrokeWidth = DEFAULT_PROGRESS_WIDTH
+                * getResources().getDisplayMetrics().density;
+
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.ProgressBarMaterial, defStyle, 0);
 
-        mProgressColor = a.getColor(
-                R.styleable.ProgressBarMaterial_progressColor,
-                mProgressColor);
+        mProgressStrokeWidth = a.getDimension(
+                R.styleable.ProgressBarMaterial_progressStrokeWidth,
+                mProgressStrokeWidth);
+
+        CharSequence[] colors = a.getTextArray(R.styleable.ProgressBarMaterial_progressSwapColors);
+        if(colors != null && colors.length > 0) {
+            mProgressSwapColors = new int[colors.length];
+            try {
+                int i = 0;
+                for (CharSequence color : colors) {
+                    mProgressSwapColors[i++] = Color.parseColor(color.toString());
+                }
+            } catch (NumberFormatException e) {
+                mProgressSwapColors = DEFAULT_COLORS;
+            }
+        } else {
+            mProgressSwapColors = DEFAULT_COLORS;
+        }
 
         a.recycle();
-        mProgressStrokeWidth = PROGRESS_WIDTH
-                * getResources().getDisplayMetrics().density;
         mProgressPaint = new Paint();
         mProgressPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        mProgressPaint.setColor(mProgressColor);
         mProgressPaint.setStrokeWidth(mProgressStrokeWidth);
         mProgressPaint.setStyle(Paint.Style.STROKE);
 
@@ -104,9 +126,10 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
             mAnimator = new AnimatorSet();
             mAnimator.playSequentially(mAnimator1, mAnimator2);
             mAnimator.addListener(this);
-            mAnimator.setDuration(ANIM_DURATION);
+            mAnimator.setDuration(DEFAULT_ANIM_DURATION);
             mAnimator.start();
         }
+        mProgressPaint.setColor(mProgressSwapColors[mColorArrayPointer]);
         if (isInEditMode()) {
             canvas.drawArc(mProgressRect, 100, 300, false, mProgressPaint);
         } else {
@@ -115,12 +138,23 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
 
     }
 
-
+    /**
+     * This function is used to create the animation for the progressbar.
+     * It represents the sweep angle of the arc at a particular time.
+     *
+     * @param baseValue The example color attribute value to use.
+     */
     public void setSweepAngle(float baseValue) {
         mSweepAngle = baseValue;
         invalidate();
     }
 
+    /**
+     * This function is used to create the animation for the progressbar.
+     * It represents the start angle of the arc at a particular time.
+     *
+     * @param baseValue The example color attribute value to use.
+     */
     public void setStartAngle(float baseValue) {
         mStartAngle = mActualCoveredAngle + baseValue;
         if (mStartAngle > 360) {
@@ -130,26 +164,38 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
     }
 
     /**
-     * Gets the color attribute value of the progressbar.
-     * @return The example color attribute value.
+     * Gets the colors attribute value of the progressbar.
+     *
+     * @return The progressbar colors attribute value.
      */
-    public int getProgressColor() {
-        return mProgressColor;
+    public int[] getProgressSwapColors() {
+        return mProgressSwapColors;
     }
 
     /**
-     * Sets the progressbar's color attribute value.
+     * Sets the progressbar's colors attribute value.
      *
-     * @param exampleColor The example color attribute value to use.
+     * @param progressSwapColors The progressbar colors attribute value to use.
      */
-    public void setProgressColor(int exampleColor) {
-        mProgressColor = exampleColor;
+    public void setProgressSwapColors(int[] progressSwapColors) {
+        mProgressSwapColors = progressSwapColors;
+        invalidate();
     }
 
+    /**
+     * Gets the progressbar's stroke width attribute value.
+     *
+     * @return The stroke width attribute value.
+     */
     public float getProgressStrokeWidth() {
         return mProgressStrokeWidth;
     }
 
+    /**
+     * Sets the progressbar's stroke width attribute value.
+     *
+     * @param progressStrokeWidth The stroke width attribute value to use.
+     */
     public void setProgressStrokeWidth(float progressStrokeWidth) {
         this.mProgressStrokeWidth = progressStrokeWidth;
         invalidate();
@@ -164,6 +210,10 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
     public void onAnimationEnd(Animator animation) {
         mActualCoveredAngle = mStartAngle;
         if (animation.equals(mAnimator)) {
+            mColorArrayPointer++;
+            if (mColorArrayPointer == mProgressSwapColors.length) {
+                mColorArrayPointer = 0;
+            }
             mAnimator.start();
         }
     }

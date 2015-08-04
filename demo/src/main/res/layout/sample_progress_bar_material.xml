@@ -11,6 +11,7 @@
         android:paddingRight="20dp"
         android:paddingTop="20dp"
         android:layout_gravity="center"
-        app:progressColor="@android:color/black"/>
+        app:progressStrokeWidth="5dp"
+        app:progressSwapColors="@array/colors" />
 
 </FrameLayout>

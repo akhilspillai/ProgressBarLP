@@ -1,5 +1,6 @@
 <resources>
     <declare-styleable name="ProgressBarMaterial">
-        <attr name="progressColor" format="color" />
+        <attr name="progressStrokeWidth" format="dimension" />
+        <attr name="progressSwapColors" format="reference" />
     </declare-styleable>
 </resources>
