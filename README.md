@@ -1,6 +1,8 @@
 # Progressbar Material
 
-This library provides a way to add a material themed circular progressbar into your android app. The progressbar can be customized to swap colors for each cycle(as seen in the inbox application) by adding a color array. Width of the progressbar stroke can also be customized.
+This library provides a way to add a material themed circular progressbar into your android app.
+The progressbar can be customized to swap colors for each cycle(as seen in the inbox application) by adding a color array.
+Width of the progressbar stroke and the duration per cycle can also be customized.
 
 ![ProgressbarMaterial](https://raw.github.com/akhilspillai/ProgressBarLP/master/screenshots.png)
 
@@ -14,6 +16,7 @@ This library provides a way to add a material themed circular progressbar into y
 
 * Use `progressStrokeWidth` attribute to control the stroke with of the progressbar.
 * Use `progressSwapColors` to supply an array of colors to swap for each rotation cycle.
+* Use `progressCycleDuration` to set the duration of each rotation cycle.
 
 ### Licence
 

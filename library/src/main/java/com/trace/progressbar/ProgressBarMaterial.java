@@ -22,7 +22,7 @@ import android.view.animation.LinearInterpolator;
 
 public class ProgressBarMaterial extends View implements Animator.AnimatorListener {
     private static final int DEFAULT_PROGRESS_WIDTH = 5;
-    private static final long DEFAULT_ANIM_DURATION = 600;
+    private static final int DEFAULT_ANIM_DURATION = 1200;
     private static final int[] DEFAULT_COLORS = new int[]{Color.RED, Color.GREEN, Color.BLUE};
     private Paint mProgressPaint;
     private RectF mProgressRect;
@@ -30,6 +30,7 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
     private AnimatorSet mAnimator;
     private int[] mProgressSwapColors;
     private int mColorArrayPointer = 0;
+    private long mProgressCycleDuration;
 
     public ProgressBarMaterial(Context context) {
         super(context);
@@ -64,6 +65,10 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
         if (mProgressSwapColors == null) {
             mProgressSwapColors = DEFAULT_COLORS;
         }
+
+        mProgressCycleDuration = a.getInt(
+                R.styleable.ProgressBarMaterial_progressCycleDuration,
+                DEFAULT_ANIM_DURATION);
 
         a.recycle();
         mProgressPaint = new Paint();
@@ -119,7 +124,7 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
             mAnimator = new AnimatorSet();
             mAnimator.playSequentially(mAnimator1, mAnimator2);
             mAnimator.addListener(this);
-            mAnimator.setDuration(DEFAULT_ANIM_DURATION);
+            mAnimator.setDuration(mProgressCycleDuration/2);
             mAnimator.start();
         }
         mProgressPaint.setColor(mProgressSwapColors[mColorArrayPointer]);

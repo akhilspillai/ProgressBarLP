@@ -12,6 +12,7 @@
         android:paddingTop="20dp"
         android:layout_gravity="center"
         app:progressStrokeWidth="5dp"
-        app:progressSwapColors="@array/colors" />
+        app:progressSwapColors="@array/swap_colors"
+        app:progressCycleDuration="1200" />
 
 </FrameLayout>

@@ -3,11 +3,4 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
-    <array name="colors">
-        <item>@color/yellow</item>
-        <item>@color/cyan</item>
-        <item>@color/violet</item>
-        <item>@android:color/black</item>
-    </array>
 </resources>
