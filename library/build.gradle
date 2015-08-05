@@ -1,5 +1,11 @@
 apply plugin: 'com.android.library'
 
+ext {
+    PUBLISH_GROUP_ID = 'com.trace'
+    PUBLISH_ARTIFACT_ID = 'progressbar-material'
+    PUBLISH_VERSION = '1.0.0'
+}
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -21,3 +27,5 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
 }
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

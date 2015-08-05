@@ -57,18 +57,11 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
                 R.styleable.ProgressBarMaterial_progressStrokeWidth,
                 mProgressStrokeWidth);
 
-        CharSequence[] colors = a.getTextArray(R.styleable.ProgressBarMaterial_progressSwapColors);
-        if(colors != null && colors.length > 0) {
-            mProgressSwapColors = new int[colors.length];
-            try {
-                int i = 0;
-                for (CharSequence color : colors) {
-                    mProgressSwapColors[i++] = Color.parseColor(color.toString());
-                }
-            } catch (NumberFormatException e) {
-                mProgressSwapColors = DEFAULT_COLORS;
-            }
-        } else {
+        int colorResId = a.getResourceId(R.styleable.ProgressBarMaterial_progressSwapColors, -1);
+        if(colorResId != -1) {
+            mProgressSwapColors = getResources().getIntArray(colorResId);
+        }
+        if (mProgressSwapColors == null) {
             mProgressSwapColors = DEFAULT_COLORS;
         }
 

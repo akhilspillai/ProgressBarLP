@@ -4,10 +4,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="colors">
-        <item>#ffff00</item>
-        <item>#00ffff</item>
-        <item>#ff00ff</item>
-        <item>#000000</item>
-    </string-array>
+    <array name="colors">
+        <item>@color/yellow</item>
+        <item>@color/cyan</item>
+        <item>@color/violet</item>
+        <item>@android:color/black</item>
+    </array>
 </resources>
