@@ -2,8 +2,11 @@
 
 This library provides a way to add a material themed circular progressbar into your android app. The progressbar can be customized to swap colors for each cycle(as seen in the inbox application) by adding a color array. Width of the progressbar stroke can also be customized.
 
+(https://raw.github.com/akhilspillai/ProgressBarLP/master/screenshot.png)
+
 ### Usage 
 
+* Download and export the library module into your application in android studio directly as this is not yet available in jcenter repository.
 * Include `com.trace.progressbar.ProgressBarMaterial` to the layout xml file wherever required.
 * Please refer to the demo app for more information.
 
