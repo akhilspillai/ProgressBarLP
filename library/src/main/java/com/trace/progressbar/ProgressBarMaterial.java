@@ -50,27 +50,28 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
     private void init(AttributeSet attrs, int defStyle) {
         mProgressStrokeWidth = DEFAULT_PROGRESS_WIDTH
                 * getResources().getDisplayMetrics().density;
+        mProgressSwapColors = DEFAULT_COLORS;
+        mProgressCycleDuration = DEFAULT_ANIM_DURATION;
 
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.ProgressBarMaterial, defStyle, 0);
+        if (attrs != null && defStyle!=0) {
+            final TypedArray a = getContext().obtainStyledAttributes(
+                    attrs, R.styleable.ProgressBarMaterial, defStyle, 0);
 
-        mProgressStrokeWidth = a.getDimension(
-                R.styleable.ProgressBarMaterial_progressStrokeWidth,
-                mProgressStrokeWidth);
+            mProgressStrokeWidth = a.getDimension(
+                    R.styleable.ProgressBarMaterial_progressStrokeWidth,
+                    mProgressStrokeWidth);
 
-        int colorResId = a.getResourceId(R.styleable.ProgressBarMaterial_progressSwapColors, -1);
-        if(colorResId != -1) {
-            mProgressSwapColors = getResources().getIntArray(colorResId);
+            int colorResId = a.getResourceId(R.styleable.ProgressBarMaterial_progressSwapColors, -1);
+            if (colorResId != -1) {
+                mProgressSwapColors = getResources().getIntArray(colorResId);
+            }
+
+            mProgressCycleDuration = a.getInt(
+                    R.styleable.ProgressBarMaterial_progressCycleDuration,
+                    DEFAULT_ANIM_DURATION);
+
+            a.recycle();
         }
-        if (mProgressSwapColors == null) {
-            mProgressSwapColors = DEFAULT_COLORS;
-        }
-
-        mProgressCycleDuration = a.getInt(
-                R.styleable.ProgressBarMaterial_progressCycleDuration,
-                DEFAULT_ANIM_DURATION);
-
-        a.recycle();
         mProgressPaint = new Paint();
         mProgressPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         mProgressPaint.setStrokeWidth(mProgressStrokeWidth);
