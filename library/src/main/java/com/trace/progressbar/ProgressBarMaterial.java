@@ -53,7 +53,7 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
         mProgressSwapColors = DEFAULT_COLORS;
         mProgressCycleDuration = DEFAULT_ANIM_DURATION;
 
-        if (attrs != null && defStyle!=0) {
+        if (attrs != null) {
             final TypedArray a = getContext().obtainStyledAttributes(
                     attrs, R.styleable.ProgressBarMaterial, defStyle, 0);
 
