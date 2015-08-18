@@ -4,7 +4,7 @@ This library provides a way to add a material themed circular progressbar into y
 The progressbar can be customized to swap colors for each cycle(as seen in the inbox application) by adding a color array.
 Width of the progressbar stroke and the duration per cycle can also be customized.
 
-![ProgressbarMaterial](https://raw.github.com/akhilspillai/ProgressBarLP/master/screenshots.png)
+![ProgressbarMaterial](https://raw.github.com/akhilspillai/ProgressBarLP/master/progressbar-material.gif)
 
 ### Usage 
 
