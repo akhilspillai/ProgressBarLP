@@ -9,7 +9,7 @@ Width of the progressbar stroke and the duration per cycle can also be customize
 ### Usage 
 
 * If you are using eclipse download and import the project as a library.
-If you are using android studio use `compile 'com.trace:progressbar-material:1.1.0'` in your gradle.build file under `dependencies`.
+If you are using android studio use `compile 'com.trace:progressbar-material:1.1.1'` (please do not use lower versions)in your gradle.build file under `dependencies`.
 * Include `com.trace.progressbar.ProgressBarMaterial` to the layout xml file wherever required.
 * Please refer to the demo app for more information.
 
