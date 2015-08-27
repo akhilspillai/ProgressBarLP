@@ -12,6 +12,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 /**
@@ -113,11 +114,11 @@ public class ProgressBarMaterial extends View implements Animator.AnimatorListen
             mAnimator1.addListener(this);
 
             ObjectAnimator mSweepAnimator2 = ObjectAnimator.ofFloat(this, "sweepAngle", 300, 0);
-            mSweepAnimator2.setInterpolator(new LinearInterpolator());
+            mSweepAnimator2.setInterpolator(new DecelerateInterpolator());
             mSweepAnimator2.addListener(this);
 
             ObjectAnimator mStartAnimator2 = ObjectAnimator.ofFloat(this, "startAngle", 0, 360);
-            mStartAnimator2.setInterpolator(new LinearInterpolator());
+            mStartAnimator2.setInterpolator(new DecelerateInterpolator());
 
             AnimatorSet mAnimator2 = new AnimatorSet();
             mAnimator2.playTogether(mStartAnimator2, mSweepAnimator2);
